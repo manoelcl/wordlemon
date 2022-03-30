@@ -7,8 +7,68 @@
     <title>Wordlémon</title>
     <meta name="author" content="Manoel Castro Lois" />
     <meta name="description" content="A wordle with Pokémon names" />
+    <script src="main.js" defer></script>
+    <link rel="stylesheet" href="./styles/style.css" />
   </head>
   <body>
-    <script src="main.js"></script>
+    <header>
+      <h1>Wordlémon</h1>
+      <!-- <form action="">
+        <legend>Pokédex mode</legend>
+        <label for="gen1">Gen I</label>
+        <input type="checkbox" id="gen1" name="gen1" value="gen1" />
+        <label for="gen2">Gen II</label>
+        <input type="checkbox" id="gen2" name="gen2" value="gen2" />
+        <label for="gen3">Gen III</label>
+        <input type="checkbox" id="gen3" name="gen3" value="gen3" />
+        <label for="gen4">Gen IV</label>
+        <input type="checkbox" id="gen4" name="gen4" value="gen4" />
+        <label for="gen5">Gen V</label>
+        <input type="checkbox" id="gen5" name="gen5" value="gen5" />
+        <label for="gen6">Gen VI</label>
+        <input type="checkbox" id="gen6" name="gen6" value="gen6" />
+        <label for="gen7">Gen VII</label>
+        <input type="checkbox" id="gen7" name="gen7" value="gen7" />
+        <label for="gen8">Gen VIII</label>
+        <input type="checkbox" id="gen8" name="gen8" value="gen8" />
+        <button>Start</button>
+      </form> -->
+    </header>
+
+    <main>
+      <section><h2>Who's that pokémon?</h2></section>
+      <section class="pokeball-tray"></section>
+      <section class="investigation">
+        <section>
+          <h3>Generation:</h3>
+          <p>Not available</p>
+        </section>
+        <section class="imagePokemon">
+          <img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/890.png"
+            alt="pokemon"
+          />
+        </section>
+        <section>
+          <h3>Type:</h3>
+          <p>Not available</p>
+        </section>
+      </section>
+      <form name="textForm">
+        <input
+          type="text"
+          id="textInput"
+          name="textInput"
+          autofocus
+          placeholder="Enter your guess"
+        />
+      </form>
+    </main>
+
+    <footer>
+      Created by <a href="https://github.com/manoelcl">Manoel Castro</a>. This
+      game has not commercial purpose and currently uses the
+      <a href="https://pokeapi.co">Pokéapi</a>
+    </footer>
   </body>
 </html>

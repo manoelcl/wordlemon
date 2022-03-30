@@ -1,0 +1,157 @@
+/* POKEBALL LINE */
+
+.pokeball-set {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* POKEBALL */
+
+.pokeball {
+  position: relative;
+  height: 3rem;
+  min-width: 3rem;
+  background-color: rgb(0, 0, 0);
+  overflow: hidden;
+  border-radius: 50%;
+  transition: transform 0.15s;
+  box-shadow: 0px 4px 4px black;
+}
+.pokeball p {
+  font-weight: bolder;
+  font-size: 0.8rem;
+  color: red;
+}
+.pokeball > div {
+  height: 100%;
+  width: 100%;
+}
+.pokeball:hover {
+  transform: scale(1.25) translate(0, -0.25rem);
+  z-index: 1;
+}
+.pokeball > div:nth-child(2) > :first-child {
+  background-color: red;
+  margin-bottom: 2px;
+  height: 50%;
+}
+.pokeball > div:nth-child(2) > :nth-child(2) {
+  background-color: white;
+  height: 50%;
+}
+.pokeball > div:nth-child(2) > :nth-child(3) {
+  background-color: white;
+  border: 1px solid black;
+  top: 1rem;
+  right: 1rem;
+  height: 1rem;
+  width: 1rem;
+  border-radius: 50%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+}
+.pokeball > div:first-child {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 2;
+  mix-blend-mode: hard-light;
+
+  background-image: radial-gradient(circle at top, white, rgb(56, 56, 56) 75%);
+}
+
+/* CAPTURED */
+
+.captured {
+  box-shadow: 0px 0px 4px 3px #99ff00;
+}
+.captured > div:nth-child(2) {
+  animation-name: captured-rotation;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
+.captured > div:nth-child(2) > :nth-child(3) {
+  animation-name: captured-angle;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
+
+/* HALF CAPTURED */
+
+.half-captured {
+  box-shadow: 0px 0px 4px 3px rgb(255, 166, 0);
+}
+.half-captured > div:nth-child(2) {
+  animation-name: half-captured-rotation;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+.half-captured > div:nth-child(2) > :nth-child(3) {
+  animation-name: half-captured-angle;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+/* NOT CAPTURED */
+
+.not-captured > div:nth-child(2) > :first-child {
+  background-color: grey;
+}
+
+/* ANIMATIONS */
+
+@keyframes half-captured-rotation {
+  0% {
+    transform: rotate(-45deg);
+  }
+  25% {
+    transform: rotate(45deg);
+  }
+  50% {
+    transform: rotate(-25deg);
+  }
+  75% {
+    transform: rotate(45deg);
+  }
+  100% {
+    transform: rotate(-45deg);
+  }
+}
+@keyframes half-captured-angle {
+  0% {
+    transform: translateX(-12px);
+  }
+  50% {
+    transform: translateX(12px);
+  }
+  100% {
+    transform: translateX(-12px);
+  }
+}
+@keyframes captured-rotation {
+  0% {
+    transform: rotate(-12deg);
+  }
+  50% {
+    transform: rotate(12deg);
+  }
+  100% {
+    transform: rotate(-12deg);
+  }
+}
+@keyframes captured-angle {
+  0% {
+    transform: translateX(-4px);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+  100% {
+    transform: translateX(-4px);
+  }
+}

@@ -1,0 +1,119 @@
+@import url("./pokeball.css");
+
+@font-face {
+  font-family: "Pokemon solid";
+  src: url("../fonts/Pokemon Solid.ttf");
+}
+:root {
+  --color-text: rgb(29, 36, 94);
+  --color-background: rgb(235, 36, 36);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  justify-content: center;
+}
+
+header {
+  height: fit-content;
+}
+
+main {
+  background-color: var(--color-background);
+  border-radius: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+footer {
+  text-align: center;
+}
+
+html {
+  background-image: linear-gradient(#85e9f8, white, #86c11d);
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--color-text);
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+main form input {
+  font-size: 2rem;
+  text-align: center;
+  border-radius: 1rem;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  border: grey 3px inset;
+}
+
+h1 {
+  font-family: "Pokemon solid";
+  color: rgb(255, 247, 129);
+  letter-spacing: 4px;
+  text-shadow: 4px 4px 0px var(--color-text);
+  font-size: 4rem;
+  text-align: center;
+  margin: 1rem;
+}
+
+h2 {
+  text-align: center;
+}
+
+.pokeball-tray {
+  width: 100%;
+  background-color: rgb(86, 114, 85);
+  border-radius: 1rem;
+  border: grey 3px inset;
+  overflow-x: auto;
+}
+
+.pokeball-tray img {
+  height: 33vw;
+}
+.no-brightness {
+  filter: brightness(0);
+}
+.no-visible {
+  opacity: 0;
+}
+.imagePokemon {
+  background-image: radial-gradient(
+    rgb(210, 221, 221) 35%,
+    rgb(134, 255, 255) 55%,
+    var(--color-background) 75%
+  );
+  overflow: hidden;
+  border-radius: 0.5rem;
+  border: 4px solid var(--color-text);
+}
+.investigation {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  width: calc(100% - 2rem);
+  gap: 1rem;
+}
+.imagePokemon img {
+  width: 12rem;
+  image-rendering: crisp-edges;
+}
+.green {
+  background-color: #86c11d;
+}
