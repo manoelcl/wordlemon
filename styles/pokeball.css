@@ -103,6 +103,18 @@
   background-color: grey;
 }
 
+/* SPECIAL */
+
+.special {
+  box-shadow: 0px 0px 4px 5px rgb(0, 204, 255);
+}
+.special > div:nth-child(2) > :first-child {
+  background-color: rgb(0, 140, 255);
+  animation-name: special-animation;
+  animation-duration: 0.35s;
+  animation-iteration-count: infinite;
+}
+
 /* ANIMATIONS */
 
 @keyframes half-captured-rotation {
@@ -153,5 +165,18 @@
   }
   100% {
     transform: translateX(-4px);
+  }
+}
+@keyframes special-animation {
+  0% {
+    background-color: rgb(0, 140, 255);
+  }
+
+  50% {
+    background-color: rgb(139, 232, 255);
+  }
+
+  100% {
+    background-color: rgb(0, 140, 255);
   }
 }
