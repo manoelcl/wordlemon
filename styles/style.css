@@ -126,12 +126,21 @@ a {
   background-color: rgb(86, 114, 85);
   border-radius: 1rem;
   border: grey 3px inset;
+}
+
+.pokeball-set {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem 0.25rem 0.25rem 0.25rem;
+  height: 4.5rem;
+  width: 100%;
+  overflow-x: scroll;
   overflow-x: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
-.pokeball-tray::-webkit-scrollbar {
+.pokeball-set::-webkit-scrollbar {
   display: none;
 }
 
@@ -148,12 +157,22 @@ a {
   cursor: pointer;
   color: var(--color-text);
 }
+
+.pokeball-tray > p {
+  font-weight: bolder;
+  text-align: center;
+  font-size: 1.25rem;
+}
+
 .pokeball-tray button:hover {
   background-color: var(--color-hover-buttons);
   color: var(--color-hover-text);
 }
 
 .imagePokemon {
+  position: relative;
+  width: 12rem;
+  height: 12rem;
   --animation-value-1: 55%;
   background-image: radial-gradient(
     rgb(210, 221, 221) 35%,
@@ -194,6 +213,27 @@ a {
   }
 }
 
+.loader {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 /* Investigation Section */
 
 .investigation {
@@ -210,6 +250,7 @@ a {
 @media (max-width: 500px) {
   h1 {
     font-size: 3rem;
+    margin-bottom: 0;
   }
   /* Investigation Section */
   .investigation {
@@ -220,7 +261,14 @@ a {
       "b c";
     justify-items: center;
   }
-
+  header {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+  header section {
+    order: 1;
+  }
   .investigation :nth-child(2) {
     order: -1;
     grid-area: a;
@@ -230,5 +278,9 @@ a {
   }
   .investigation :nth-child(3) {
     grid-area: c;
+  }
+
+  footer {
+    font-size: 0.7rem;
   }
 }

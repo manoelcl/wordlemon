@@ -1,13 +1,14 @@
 "use strict";
 import { encode64, decode64 } from "./helpers/encoding.js";
 
-//General variables
+//VARIABLES
 
 const totalPokemon = 811;
 let pokemon;
 let tries = 4;
+let rewards = [];
 
-//DOM elements
+//DOM ELEMENTS VARIABLES
 
 const pokeballTray = document.querySelector(".pokeball-tray");
 const pokedexButton = document.querySelector("header section");
@@ -41,9 +42,14 @@ const updatePokedexNumber = () =>
     .length.toString()
     .padStart(3, 0)}/${totalPokemon}`);
 
+//------INPUT FUNCTIONS----//
+
+//TEXT INPUT
+
 textInput.addEventListener("submit", (event) => {
   event.preventDefault();
   const input = event.target.elements.textInput.value;
+
   if (pokemon.species.name.length === input.length) {
     guessPokemon(pokemon.species.name.toUpperCase(), input.toUpperCase());
     event.target.elements.textInput.value = "";
@@ -52,13 +58,47 @@ textInput.addEventListener("submit", (event) => {
 });
 
 textInput.elements.textInput.addEventListener("input", (event) => {
-  console.log(event.target.value);
-  if (event.target.value.length === pokemon.species.name.length) {
+  const inputLength = event.target.value.length;
+  const nameLength = pokemon.species.name.length;
+  if (inputLength === nameLength) {
     event.target.classList.add("green");
+  } else if (inputLength > nameLength) {
+    event.target.classList.add("green");
+    event.target.value = event.target.value.slice(0, nameLength);
   } else {
     event.target.classList.remove("green");
   }
 });
+
+//CREATE BUTTON
+
+const createButton = (text, callback) => {
+  const button = document.createElement("button");
+  button.textContent = "Next Pokémon";
+  button.addEventListener("click", (event) => {
+    event.preventDefault();
+    pokeballTray.innerHTML = "";
+    setupGame();
+  });
+  return button;
+};
+
+//-----------GAMEPLAY FUNCTIONS-----------//
+
+//CREATE POKEBALLS
+
+const rewardEvent = (event) => {
+  const DOMElement = event.currentTarget;
+  DOMElement.removeEventListener("click", addReward);
+  DOMElement.classList.remove("special");
+  img.classList.remove("no-visible");
+};
+
+const addReward = (pokeball, position) => {
+  pokeball.classList.add("special");
+  pokeball.addEventListener("click", rewardEvent);
+  rewards[position] = 0;
+};
 
 const createPokeballs = (pokeballs, guess) => {
   const pokeballSet = document.createElement("div");
@@ -70,8 +110,14 @@ const createPokeballs = (pokeballs, guess) => {
     newPokeball.querySelector("p").textContent = guess[index];
     if (element === "◓") {
       newPokeball.classList.add("captured");
+      if (rewards[index] === 2) {
+        addReward(newPokeball, index);
+      }
     } else if (element === "○") {
       newPokeball.classList.add("half-captured");
+      if (rewards[index] === 1) {
+        addReward(newPokeball, index);
+      }
     } else {
       newPokeball.classList.add("not-captured");
     }
@@ -79,6 +125,19 @@ const createPokeballs = (pokeballs, guess) => {
   });
   pokeballTray.append(pokeballSet);
 };
+
+//CREATE REWARDS
+
+const createRewards = (string) => {
+  rewards = [];
+  [...string].map(() => {
+    const reward = Math.floor(Math.random() * 3);
+    rewards.push(reward);
+  });
+  console.log(rewards);
+};
+
+//MAIN LOOP
 
 function guessPokemon(pokemonName, guess) {
   let nextPattern = "";
@@ -97,49 +156,40 @@ function guessPokemon(pokemonName, guess) {
     nextPattern += nextSymbol || "◌";
   }
 
-  const createRestarButton = () => {
-    const restartButton = document.createElement("button");
-    restartButton.textContent = "Next Pokémon";
-    restartButton.addEventListener("click", (event) => {
-      event.preventDefault();
-      pokeballTray.innerHTML = "";
-      setupGame();
-    });
-    return restartButton;
-  };
-
   createPokeballs(nextPattern, guess);
   console.log(tries);
+
   if (pokemonName.toUpperCase() === guess) {
     textInput.children[0].disabled = true;
     img.classList.remove("no-brightness", "no-visible");
     img.classList.add("move");
-    const h21 = document.createElement("h2");
-    h21.textContent = `All right!`;
-    const h22 = document.createElement("h2");
-    h22.textContent = `${pokemonName} was caught!`;
-    const h23 = document.createElement("h2");
-    h23.textContent = `New POKÉDEX data will be added for ${pokemonName}!`;
-    const restartButton = createRestarButton();
-    pokeballTray.append(h21, h22, h23, restartButton);
+    const p1 = document.createElement("p");
+    p1.textContent = `All right!`;
+    const p2 = document.createElement("p");
+    p2.textContent = `${pokemonName} was caught!`;
+    const p3 = document.createElement("p");
+    p3.textContent = `New POKÉDEX data will be added for ${pokemonName}!`;
+    const restartButton = createButton();
+    pokeballTray.append(p1, p2, p3, restartButton);
 
     const getPokemon = getStoredPokemon();
 
     storePokemon(getPokemon, pokemonName);
   } else if (--tries <= 0) {
-    const h2 = document.createElement("h2");
-    h2.textContent = `The pokémon was ${pokemonName}`;
+    const p = document.createElement("p");
+    p.textContent = `The pokémon was ${pokemonName}`;
     img.classList.remove("no-brightness", "no-visible");
-    const restartButton = createRestarButton();
-    pokeballTray.append(h2, restartButton);
-  } else if (tries === 3) {
-    img.classList.remove("no-visible");
+    const restartButton = createButton();
+    pokeballTray.append(p, restartButton);
   }
 }
+
+//GAME SETUP
 
 const setupGame = async () => {
   textInput.children[0].disabled = false;
   tries = 4;
+  img.parentElement.children[0].style.visibility = "visible";
   try {
     const response = await fetch(
       `https://pokeapi.co/api/v2/pokemon/${Math.floor(
@@ -149,6 +199,7 @@ const setupGame = async () => {
 
     if (response.ok) {
       pokemon = await response.json();
+      img.parentElement.children[0].style.visibility = "hidden";
     } else {
       throw new Error("Failed to import Pokeapi data.");
     }
@@ -157,8 +208,10 @@ const setupGame = async () => {
   }
   img.src = pokemon.sprites.front_default;
   img.classList.add("no-brightness", "no-visible");
+  img.classList.remove("move");
   createPokeballs(pokemon.species.name.toUpperCase(), "");
   console.log(pokemon.species.name);
+  createRewards(pokemon.species.name);
   updatePokedexNumber();
 };
 
