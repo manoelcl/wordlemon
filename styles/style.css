@@ -130,11 +130,11 @@ a {
 
 .pokeball-set {
   display: flex;
+  justify-content: center;
   gap: 0.5rem;
   padding: 1rem 0.25rem 0.25rem 0.25rem;
   height: 4.5rem;
   width: 100%;
-  overflow-x: scroll;
   overflow-x: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -279,7 +279,9 @@ a {
   .investigation :nth-child(3) {
     grid-area: c;
   }
-
+  .pokeball-set {
+    justify-content: flex-start;
+  }
   footer {
     font-size: 0.7rem;
   }
